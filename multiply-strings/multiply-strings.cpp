@@ -16,9 +16,7 @@ public:
                 ans[i+j+1]=temp+'0';
             }
         }
-        
-        
-          
+              
         int flag=0;
         int index=-1;
         for(int i=0;i<n+m;i++){
