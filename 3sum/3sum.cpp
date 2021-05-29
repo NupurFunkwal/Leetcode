@@ -8,6 +8,7 @@ public:
             vector<int> temp;
             temp.emplace_back(nums[j]);
             temp.emplace_back(nums[k]);
+            temp.emplace_back(-s);
             ans.insert(temp);
             twosum(nums, ++j, k, s, ans);
             twosum(nums, j, --k, s, ans);         
@@ -21,7 +22,6 @@ public:
     }
     
     vector<vector<int>> threeSum(vector<int>& nums) {
-        set<vector<int>> ans;
         vector<vector<int>> result;
         sort(nums.begin(), nums.end());
         
@@ -30,6 +30,7 @@ public:
         }
         
         map<int, bool> m;
+        set<vector<int>> res;
         
         for(int i=0; i<nums.size()-2; i++){
             if(m[nums[i]]!=true){
@@ -39,23 +40,12 @@ public:
                 continue;
             }
             int j = i+1, k = nums.size()-1;
-            set<vector<int>> res;
             twosum(nums, j, k, -nums[i], res);
-            if(res.size() == 0){
-                continue;
-            }
-            else{
-                set<vector<int>> :: iterator it;
-                for(it= res.begin(); it!= res.end(); it++){
-                    vector<int> tempo = *it;
-                    tempo.emplace_back(nums[i]);
-                    ans.insert(tempo);
-                }
-            }
+            
         }
         
         set<vector<int>> :: iterator it2;
-        for( it2=ans.begin(); it2!=ans.end(); it2++){
+        for( it2=res.begin(); it2!=res.end(); it2++){
             result.emplace_back(*it2);
         }
         return result;
