@@ -19,23 +19,6 @@ public:
         else return false;
     }
     
-    int find(vector<Job> jobs, int i){
-        int beg = 0, end = i-1;
-        while(beg<=end){
-            int mid = beg + (end-beg)/2;
-            if(jobs[mid].end <= jobs[i].start){
-                if(jobs[mid+1].end <= jobs[i].start){
-                    beg = mid+1;
-                }
-                else return mid;
-            }
-            else{
-                end = mid-1;
-            }
-        }
-        return -1;
-    }
-    
     int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
         int n = profit.size();
         vector<Job> jobs;
