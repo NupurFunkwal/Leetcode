@@ -23,7 +23,6 @@ public:
             }
             else{
                 count--;
-                ans = max(count, ans);
                 j++;
             }
         }
