@@ -33,6 +33,7 @@ public:
         
         for(int i=0; i<n;i++){
             if(visited[i] == 0){
+                visited[i] = 1;
                 q.emplace(i);
                 if(bfs(graph, visited, q) == false){
                     return false;
@@ -41,8 +42,6 @@ public:
         }
         
         return true;
-        
-        
-        
+            
     }
 };
