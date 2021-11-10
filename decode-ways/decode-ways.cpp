@@ -18,10 +18,10 @@ public:
         else dp[1] = 0;
         
         for(int i=2; i<=n; i++){
-            if(s[i] == '0'){
-               dp[i] = dp[i-1];
-                continue;
-            }
+            // if(s[i] == '0'){
+            //    dp[i] = dp[i-1];
+            //     continue;
+            // }
             int one = dp[i-1];
             if(s[i-1] == '0'){
                 one = 0;
