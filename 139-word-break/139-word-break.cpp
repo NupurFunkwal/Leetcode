@@ -2,29 +2,25 @@ class Solution {
 public:
     unordered_map<string, bool> m;
     bool wordBreak(string s, vector<string>& wordDict) {
-        //base case 
-        if(find(wordDict.begin(), wordDict.end(), s)!=wordDict.end()){
-            return true;
+        vector<int> word_len(s.length(),-1);
+        for(int i=0;i<s.length();i++){
+            if(find(wordDict.begin(), wordDict.end(), s.substr(0, i+1)) != wordDict.end()){
+                word_len[i] = i+1;
+            }
+            
+            if(word_len[i] == -1){
+                for(int j=i-1;j>=0;j--){
+                    if(word_len[j] != -1 && find(wordDict.begin(), wordDict.end(), s.substr(j+1, i-j)) != wordDict.end()){
+                        word_len[i] = i-j;
+                        break;
+                    }
+                }
+            }    
         }
         
-        if(s.length()==1){
+        if(word_len[s.length()-1] == -1){
             return false;
         }
-        
-        int n = s.length();
-        if(m.find(s)!=m.end()){
-            return m[s];
-        }
-        
-        for(int k=1; k<n; k++){
-            bool c1 = wordBreak(s.substr(0,k), wordDict);
-            bool c2 = wordBreak(s.substr(k,n-k), wordDict);
-            
-            if(c1 && c2){
-                return m[s]=true;
-            }
-        }
-        
-        return m[s]=false;
+        else return true;
     }
 };
