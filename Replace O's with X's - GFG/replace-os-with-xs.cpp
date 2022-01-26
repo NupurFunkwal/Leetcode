@@ -11,7 +11,7 @@ class Solution{
 public:
     int move[4][2]= {{0,1}, {0,-1}, {1,0}, {-1,0}};
     
-    void bfs(int x, int y, vector<vector<char>> &mat){
+    void dfs(int x, int y, vector<vector<char>> &mat){
         //base case
         int n=mat.size();
         int m=mat[0].size();
@@ -23,7 +23,7 @@ public:
         mat[x][y]='X';
         for(int i=0; i<4;i++){
             if(x+move[i][0]>=0 && x+move[i][0]<n && y+move[i][1]>=0 && y+move[i][1]<m && mat[x+move[i][0]][y+move[i][1]]=='O'){
-                bfs(x+move[i][0], y+move[i][1], mat);
+                dfs(x+move[i][0], y+move[i][1], mat);
             }
         }
     }
@@ -39,13 +39,13 @@ public:
         }
         
         for(int i=0; i<n; i++){
-            bfs(i,0,mat);
-            bfs(i,m-1,mat);
+            dfs(i,0,mat);
+            dfs(i,m-1,mat);
         }
         
         for(int j=0;j<m;j++){
-            bfs(0,j,mat);
-            bfs(n-1,j,mat);
+            dfs(0,j,mat);
+            dfs(n-1,j,mat);
         }
         
         for(int i=0; i<n;i++){
