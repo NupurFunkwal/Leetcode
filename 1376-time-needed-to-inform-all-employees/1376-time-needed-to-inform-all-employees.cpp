@@ -1,23 +1,36 @@
 class Solution {
 public:
-    void util(int index, int time, vector<int> &manager, vector<int> &informTime, int &ans){
-        if(index ==-1){
-            ans = max(time,ans);
-            return;
-        }
+    int ans=0;
+    
+    void dfs(vector<vector<int>> &graph, vector<bool> &visited, int temp, int source, vector<int> &informTime){
+        visited[source]=true;
+        temp+= informTime[source];
+        ans = max(ans, temp);
         
-        time+= informTime[index];
-        util(manager[index], time, manager, informTime, ans);
+        for(int i=0; i<graph[source].size(); i++){
+            if(!visited[graph[source][i]]){
+                dfs(graph, visited, temp, graph[source][i], informTime);
+            }
+        }
     }
     
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-        int ans=0;
+        vector<vector<int>> graph(n);
+        int source;
         
-        for(int i=0; i<n; i++){
-            if(informTime[i]==0){
-                util(i, 0, manager, informTime, ans);
+        for(int i=0; i<n ;i++){
+            if(manager[i]==-1){
+                source=i;
+                continue;
             }
+            
+            graph[i].emplace_back(manager[i]);
+            graph[manager[i]].emplace_back(i); 
         }
+        
+        int temp=0;
+        vector<bool> visited(n, false);
+        dfs(graph, visited, temp, source, informTime);
         return ans;
     }
 };
